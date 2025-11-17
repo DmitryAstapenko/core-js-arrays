@@ -496,8 +496,25 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => longest is [3, 10] and [1, 20] => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => longest is [7, 40, 80] => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let maxN = 1;
+  let currN = 1;
+
+  nums.reduce((prev, curr) => {
+    if (curr > prev) {
+      currN += 1;
+
+      if (currN > maxN) {
+        maxN = currN;
+      }
+    } else {
+      currN = 1;
+    }
+
+    return curr;
+  });
+
+  return maxN;
 }
 
 /**
@@ -514,8 +531,10 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  return arr
+    .map((item, i) => Array.from({ length: i + 1 }, () => item))
+    .flat(1);
 }
 
 /**
@@ -531,8 +550,8 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  return (n > 0 ? arr.splice(-n) : arr.splice(Math.abs(n))).concat(arr);
 }
 
 /**
@@ -548,8 +567,21 @@ function shiftArray(/* arr, n */) {
  *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
  *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numStr = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+
+  return arr.sort((a, b) => numStr.indexOf(a) - numStr.indexOf(b));
 }
 
 /**
@@ -571,8 +603,14 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const array = [...arr];
+  const { length } = array;
+  const right = array.slice(Math.ceil(length / 2));
+  const middle = length % 2 ? array.splice(Math.trunc(5 / 2), 1) : [];
+  const left = array.slice(0, Math.ceil(length / 2) - (length % 2));
+
+  return length > 3 ? right.concat(middle).concat(left) : arr.reverse();
 }
 
 module.exports = {
